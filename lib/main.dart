@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hotel_design_app/models/hotel_data.dart';
 import 'package:hotel_design_app/screens/content_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,9 +18,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-     debugShowCheckedModeBanner: false,
-      home: ContentScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => HotelData(),
+      child: const MaterialApp(
+       debugShowCheckedModeBanner: false,
+        home: ContentScreen(),
+      ),
     );
   }
 }
