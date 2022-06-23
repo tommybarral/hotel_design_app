@@ -8,3 +8,4 @@ Hotel Design app
 
 Beginning of the project / debut du projet.
 ![cap1.png](images/cap1.png)
+![cap2.png](images/cap2.png[])

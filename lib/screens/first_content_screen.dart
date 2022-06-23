@@ -3,8 +3,8 @@ import 'package:hotel_design_app/constants.dart';
 import 'package:hotel_design_app/models/hotel_data.dart';
 import 'package:provider/provider.dart';
 
-class ContentScreen extends StatelessWidget {
-  const ContentScreen({Key? key}) : super(key: key);
+class FirstContentScreen extends StatelessWidget {
+  const FirstContentScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
