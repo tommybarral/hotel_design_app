@@ -1,5 +1,6 @@
 
 import 'package:flutter/foundation.dart';
+import 'package:hotel_design_app/constants.dart';
 import 'package:hotel_design_app/models/hotel.dart';
 
 class HotelData with ChangeNotifier {
@@ -7,16 +8,16 @@ class HotelData with ChangeNotifier {
     Hotel(
         id: 'h1',
         title: 'LaVista Hotel',
-        imageUrl: 'imageUrl',
+        imageUrl: lavistaHotel,
         description: 'this beachfront myrtle. Beach hotel',
-        price: 250.00,
+        price: 450.00,
         distance: 2,
         likes: 0,
     ),
     Hotel(
         id: 'h2',
         title: 'Miami St Hotel',
-        imageUrl: 'imageUrl',
+        imageUrl: miamiHotel,
         description: 'this beachfront myrtle. Beach hotel',
         price: 250.00,
         distance: 2,
@@ -25,9 +26,9 @@ class HotelData with ChangeNotifier {
     Hotel(
         id: 'h3',
         title: 'Rk Mega Hotel',
-        imageUrl: 'imageUrl',
+        imageUrl: megaHotel,
         description: 'this beachfront myrtle. Beach hotel',
-        price: 250.00,
+        price: 650.00,
         distance: 2,
         likes: 0,
     ),

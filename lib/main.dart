@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hotel_design_app/models/hotel_data.dart';
+import 'package:hotel_design_app/screens/choice_overview_screen.dart';
+import 'package:hotel_design_app/screens/details_screen.dart';
 import 'package:hotel_design_app/screens/first_content_screen.dart';
 import 'package:hotel_design_app/screens/second_content_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,9 +23,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HotelData(),
-      child: const MaterialApp(
+      child: MaterialApp(
        debugShowCheckedModeBanner: false,
-        home: SecondContentScreen(),
+        home: ChoiceOverviewScreen(),
+        routes: {
+         FirstContentScreen.routeName: (context) => const FirstContentScreen(),
+          SecondContentScreen.routeName: (context) => const SecondContentScreen(),
+          DetailsScreen.routeName: (context) => const DetailsScreen(),
+        },
       ),
     );
   }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_design_app/constants.dart';
 import 'package:hotel_design_app/models/hotel_data.dart';
+import 'package:hotel_design_app/screens/details_screen.dart';
 import 'package:provider/provider.dart';
 
 class FirstContentScreen extends StatelessWidget {
   const FirstContentScreen({Key? key}) : super(key: key);
+
+  static const routeName = '/first-content-screen';
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class FirstContentScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black,),
         ),
         actions: [
           Padding(
@@ -27,7 +30,7 @@ class FirstContentScreen extends StatelessWidget {
               width: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: NetworkImage(imageProfile),
                 ),
               ),
@@ -43,50 +46,55 @@ class FirstContentScreen extends StatelessWidget {
               padding: EdgeInsets.all(15.0),
               child: Text('Available room', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500, color: Colors.green),),
             ),
-            Container(
+            SizedBox(
               height: 360,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: loadedHotelData.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            bottom: 0,
-                            child: Container(
-                              height: 80,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(DetailsScreen.routeName, arguments: loadedHotelData[index].id);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              bottom: 0,
+                              child: Container(
+                                height: 80,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.green.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child:  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('${loadedHotelData[index].price} USD (Per Night)', style: const TextStyle(fontSize: 20, fontStyle: FontStyle.italic),),
+                                    ),),
+                              ),
+                            ),
+                            Container(
+                              height: 300,
                               width: 300,
                               decoration: BoxDecoration(
-                                color: Colors.green.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(25),
-                              ),
-                              child:  Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('PRICE THERE'),
-                                  ),),
-                            ),
-                          ),
-                          Container(
-                            height: 300,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              image: const DecorationImage(
-                                  image: NetworkImage(hotelBeach),
-                                  fit: BoxFit.cover,
+                                image: DecorationImage(
+                                    image: NetworkImage(loadedHotelData[index].imageUrl),
+                                    fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                            Positioned(
-                              top: 30,
-                              right: 30,
-                              child: Text('Room - 206', style: TextStyle(color: Colors.white),),
-                            ),
-                        ],
+                              const Positioned(
+                                top: 30,
+                                right: 30,
+                                child: Text('Room - 206', style: TextStyle(fontSize: 24, color: Colors.black),),
+                              ),
+                          ],
+                        ),
                       ),
                     );
                   }),
@@ -95,29 +103,34 @@ class FirstContentScreen extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text('Photos', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500,  color: Colors.green),),
                   Text('Room - 206', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic,  color: Colors.green),),
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: 250,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: loadedHotelData.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 220,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          image: DecorationImage(
-                            image: NetworkImage(hotelBeach),
-                            fit: BoxFit.cover,
-                          )
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(DetailsScreen.routeName, arguments: loadedHotelData[index].id);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          height: 220,
+                          width: 170,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            image: DecorationImage(
+                              image: NetworkImage(loadedHotelData[index].imageUrl),
+                              fit: BoxFit.cover,
+                            )
+                          ),
                         ),
                       ),
                     );

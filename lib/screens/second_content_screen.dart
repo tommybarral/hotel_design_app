@@ -3,8 +3,12 @@ import 'package:hotel_design_app/constants.dart';
 import 'package:hotel_design_app/models/hotel_data.dart';
 import 'package:provider/provider.dart';
 
+import 'details_screen.dart';
+
 class SecondContentScreen extends StatelessWidget {
   const SecondContentScreen({Key? key}) : super(key: key);
+
+  static const routeName = '/second-content-screen';
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,7 @@ class SecondContentScreen extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height * 0.4,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(nearHotel),
                   fit: BoxFit.cover,
@@ -34,14 +38,14 @@ class SecondContentScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 10.0),
                           child: IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.arrow_back_ios, size: 28,),),
+                              icon: const Icon(Icons.arrow_back_ios, size: 28,),),
                         ),
                         Container(
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
+                            image: const DecorationImage(
                               image: NetworkImage(imageProfile),
                               fit: BoxFit.cover,
                             ),
@@ -63,7 +67,7 @@ class SecondContentScreen extends StatelessWidget {
                             color: Colors.yellow,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               onPressed: () {},
-                              child: Text('Edit',),
+                              child: const Text('Edit',),
                           ),
                         ],
                       ),
@@ -77,7 +81,7 @@ class SecondContentScreen extends StatelessWidget {
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.7,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25), 
@@ -87,56 +91,61 @@ class SecondContentScreen extends StatelessWidget {
                   child: SizedBox(
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
-                        itemCount: 5,
+                        itemCount: loadedHotelData.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 15, left: 12.0, bottom: 8.0, right: 12.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  height: 200,
-                                  width: 140,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    image: DecorationImage(
-                                      image: NetworkImage(hotelBeach),
-                                      fit: BoxFit.cover,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(DetailsScreen.routeName, arguments: loadedHotelData[index].id);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 15, left: 12.0, bottom: 8.0, right: 12.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    height: 200,
+                                    width: 140,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      image: DecorationImage(
+                                        image: NetworkImage(loadedHotelData[index].imageUrl),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  height: 190,
-                                  width: 190,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
-                                      const Text('title', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),),
-                                      const Text('description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300, fontStyle: FontStyle.italic),),
-                                      Text('distance from centre', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
-                                      Text('popularity'),
-                                      Container(
-                                        height: 40,
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: 4,
-                                          itemBuilder: (context, index) {
-                                            return Padding(
-                                              padding: const EdgeInsets.only(left: 8.0),
-                                              child: CircleAvatar(
-                                                radius: 15,
-                                                backgroundImage: NetworkImage(imageProfile),
-                                              ),
-                                            );
-                                          },
+                                  SizedBox(
+                                    height: 190,
+                                    width: 190,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                                        Text(loadedHotelData[index].title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w700),),
+                                        Text(loadedHotelData[index].description, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w300, fontStyle: FontStyle.italic),),
+                                        const Text('distance from centre', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
+                                        const Text('popularity'),
+                                        SizedBox(
+                                          height: 40,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 4,
+                                            itemBuilder: (context, index) {
+                                              return const Padding(
+                                                padding: EdgeInsets.only(left: 8.0),
+                                                child: CircleAvatar(
+                                                  radius: 15,
+                                                  backgroundImage: NetworkImage(imageProfile),
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         }),
